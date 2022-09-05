@@ -1,1 +1,1 @@
-# basics-scissors-paper-stone
+# basics-scissors-paper-stone-comp-mode
