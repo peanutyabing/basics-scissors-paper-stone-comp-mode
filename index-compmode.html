@@ -63,6 +63,11 @@ The <html> element is known as the root element of a HTML page. All other elemen
         margin: 20px auto;
         padding: 20px;
         width: 100%;
+      
+      }
+      @keyframes mynewmove {
+        from {top: 0px;}
+        to {top: 200px;}
       }
     </style>
   </head>
@@ -74,7 +79,12 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <!-- The <div> tag defines a division or a section in an HTML document, and is commonly use as a "container" for nested HTML elements. -->
     <div class="box">
       <!-- The <p> tag defines a paragraph element. -->
-      <p>Input:</p>
+      <div id="username-input">
+        <p>Username:</p>
+        <input id="username" />
+        <br />
+        <button id="submit-button">Submit</button>
+      </div>
       <!-- The self-closing <br /> tag represents a line break - a line's worth of spacing before dispalying the next element. -->
       <br />
       <!-- The <button> tag represents.. you guessed it! a button. -->
@@ -83,7 +93,10 @@ The <html> element is known as the root element of a HTML page. All other elemen
       <button id="scissors_button">🔪</button>
       <!-- check box for reverse mode -->
       <input type="checkbox" id="reverse-mode">
-      <label for="reverse-mode">Reverse mode</label><br>
+      <label for="reverse-mode">🔄</label><br>
+      <button id="computer_mode_button">🤖</button>
+      <input type="checkbox" id="reverse-computer-mode">
+      <label for="reverse-computer-mode">🔄</label><br>
       <p>Output:</p>
       <div id="output-div"></div>
     </div>
@@ -106,15 +119,31 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <!-- Everything below this is incorporating JavaScript programming logic into the webpage. -->
     <!-- The script tag encloses JavaScript syntax for the browser to interpret programtically -->
     <!-- The following line imports all code written in the script.js file -->
-    <script src="script.js"></script>
+    <script src="script-compmode.js"></script>
     <!-- Define button click functionality -->
     <script>
       var reverseMode = document.querySelector("#reverse-mode")
-
+      var reverseComputerMode = document.querySelector("#reverse-computer-mode")
+      var userNameField = document.querySelector("#username")
+      var submitButton = document.querySelector("#submit-button"); 
       var stoneButton = document.querySelector("#stone_button");
       var paperButton = document.querySelector("#paper_button");
       var scissorsButton = document.querySelector("#scissors_button");
+      var computerModeButton = document.querySelector("#computer_mode_button");
       
+      submitButton.addEventListener("click", function () {
+        if (gameMode = "waiting for username") {
+          var result = setUserName(document.querySelector("#username").value);
+          var output = document.querySelector("#output-div");
+          output.innerHTML = `Hello ${result}`;
+          } else if (gameMode = "normal mode") {
+            var result = getComputerResultComparison();
+            var output = document.querySelector("#output-div");
+            output.innerHTML =  result;
+          }
+        } 
+        );
+
       stoneButton.addEventListener("click", function () {
         var result = main("stone", reverseMode.checked);
         var output = document.querySelector("#output-div");
@@ -131,6 +160,18 @@ The <html> element is known as the root element of a HTML page. All other elemen
         var result = main("scissors", reverseMode.checked);
         var output = document.querySelector("#output-div");
         output.innerHTML = result;
+      });
+      
+      computerModeButton.addEventListener("click", function () {
+        if (reverseComputerMode.checked == true) {
+          var result = getReverseComputerResultComparison();
+          var output = document.querySelector("#output-div");
+          output.innerHTML = result;
+        } else if (reverseComputerMode.checked == false) {
+          var result = getComputerResultComparison();
+          var output = document.querySelector("#output-div");
+          output.innerHTML = result;
+        }
       });
     </script>
   </body>

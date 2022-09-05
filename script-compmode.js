@@ -1,3 +1,6 @@
+var userName = "";
+var gameMode = "waiting for username";
+
 var things = ["stone", "paper", "scissors"];
 
 var pic = {
@@ -23,10 +26,23 @@ var winningHand = {
 console.log("probability table");
 console.log(winningHand);
 
-var main = function (playerChoice, reverse = false) {
+var setUserName = function (input) {
+  if (gameMode == "waiting for username") {
+    userName = input;
+    gameMode = "normal mode";
+    // submitButton.disabled = true;
+    // userNameField.value = "";
+    document.querySelector("#username-input").style.display = "none";
+    // document.querySelector("#submit-button").style.animation = "mynewmove 4s 2";
+    return userName;
+  }
+};
+
+var main = function (playerChoice, reverse = false, computerMode = false) {
   console.log("⭐⭐⭐New Game⭐⭐⭐");
-  console.log("User:");
-  console.log(playerChoice);
+  // console.log("User:");
+  // console.log(playerChoice);
+
   if (reverse == false) {
     var finalResult = getResultComparison(playerChoice);
     console.log("Result:");
@@ -39,6 +55,13 @@ var main = function (playerChoice, reverse = false) {
     console.log(reverseFinalResult);
     return reverseFinalResult;
   }
+
+  // if (computerMode == true) {
+  //   var computerFinalResult = getComputerResultComparison();
+  //   console.log("Result:");
+  //   console.log(computerFinalResult);
+  //   return computerFinalResult;
+  // }
 };
 
 // NORMAL MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
@@ -146,6 +169,109 @@ var getReverseResultComparison = function (playerChoice) {
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> You chose ${playerChoice} ${pic[playerChoice]}.
+    <br> You lose! Bummer.  
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+};
+
+// COMPUTER MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
+
+var getComputerResultComparison = function () {
+  var computerChoice = getComputerChoice();
+  var playerChoice = getComputerChoice();
+
+  if (computerChoice === playerChoice) {
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
+    <br> It is draw! 
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+
+  if (
+    (computerChoice === things[0] && playerChoice === things[1]) ||
+    (computerChoice === things[1] && playerChoice === things[2]) ||
+    (computerChoice === things[2] && playerChoice === things[0])
+  ) {
+    // update leaderboard and winning hand tally
+    updateLeaderboard(leaderBoard, "You");
+    updateWinningHand(winningHand, playerChoice);
+    console.log("updated leader board");
+    console.log(leaderBoard);
+    console.log("updated probability table");
+    console.log(winningHand);
+
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> Computer chose ${playerChoice} ${pic[playerChoice]} for you. 
+    <br> You win!
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+
+  if (
+    (computerChoice === things[1] && playerChoice === things[0]) ||
+    (computerChoice === things[2] && playerChoice === things[1]) ||
+    (computerChoice === things[0] && playerChoice === things[2])
+  ) {
+    // update leaderboard and winning hand tally
+    updateLeaderboard(leaderBoard, "Computer");
+    updateWinningHand(winningHand, computerChoice);
+    console.log("updated leader board");
+    console.log(leaderBoard);
+    console.log("updated probability table");
+    console.log(winningHand);
+
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
+    <br> You lose! Bummer.  
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+};
+// COMPUTER REVERSE MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
+
+var getReverseComputerResultComparison = function () {
+  var computerChoice = getComputerChoice();
+  var playerChoice = getComputerChoice();
+
+  if (computerChoice === playerChoice) {
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
+    <br> It is draw! 
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+
+  if (
+    (computerChoice === things[1] && playerChoice === things[0]) ||
+    (computerChoice === things[2] && playerChoice === things[1]) ||
+    (computerChoice === things[0] && playerChoice === things[2])
+  ) {
+    // update leaderboard and winning hand tally
+    updateLeaderboard(leaderBoard, "You");
+    updateWinningHand(winningHand, playerChoice);
+    console.log("updated leader board");
+    console.log(leaderBoard);
+    console.log("updated probability table");
+    console.log(winningHand);
+
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> Computer chose ${playerChoice} ${pic[playerChoice]} for you. 
+    <br> You win!
+    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+  }
+
+  if (
+    (computerChoice === things[0] && playerChoice === things[1]) ||
+    (computerChoice === things[1] && playerChoice === things[2]) ||
+    (computerChoice === things[2] && playerChoice === things[0])
+  ) {
+    // update leaderboard and winning hand tally
+    updateLeaderboard(leaderBoard, "Computer");
+    updateWinningHand(winningHand, computerChoice);
+    console.log("updated leader board");
+    console.log(leaderBoard);
+    console.log("updated probability table");
+    console.log(winningHand);
+
+    return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
+    <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
     <br> You lose! Bummer.  
     <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
   }
