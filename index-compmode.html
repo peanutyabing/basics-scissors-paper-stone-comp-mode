@@ -65,10 +65,6 @@ The <html> element is known as the root element of a HTML page. All other elemen
         width: 100%;
       
       }
-      @keyframes mynewmove {
-        from {top: 0px;}
-        to {top: 200px;}
-      }
     </style>
   </head>
 
@@ -145,33 +141,27 @@ The <html> element is known as the root element of a HTML page. All other elemen
         );
 
       stoneButton.addEventListener("click", function () {
-        var result = main("stone", reverseMode.checked);
+        var result = main("stone", reverseMode.checked, computerMode = false);
         var output = document.querySelector("#output-div");
         output.innerHTML = result;
       });
       
       paperButton.addEventListener("click", function () {
-        var result = main("paper", reverseMode.checked);
+        var result = main("paper", reverseMode.checked, computerMode = false);
         var output = document.querySelector("#output-div");
         output.innerHTML = result;
       });
       
       scissorsButton.addEventListener("click", function () {
-        var result = main("scissors", reverseMode.checked);
+        var result = main("scissors", reverseMode.checked, computerMode = false);
         var output = document.querySelector("#output-div");
         output.innerHTML = result;
       });
       
       computerModeButton.addEventListener("click", function () {
-        if (reverseComputerMode.checked == true) {
-          var result = getReverseComputerResultComparison();
-          var output = document.querySelector("#output-div");
-          output.innerHTML = result;
-        } else if (reverseComputerMode.checked == false) {
-          var result = getComputerResultComparison();
-          var output = document.querySelector("#output-div");
-          output.innerHTML = result;
-        }
+        var result = main(undefined, reverseMode.checked, true)
+        var output = document.querySelector('#output-div');
+        output.innerHTML =result;
       });
     </script>
   </body>

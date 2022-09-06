@@ -23,7 +23,7 @@ var winningHand = {
   paper: 0,
   scissors: 0,
 };
-console.log("probability table");
+console.log("winning tally");
 console.log(winningHand);
 
 var setUserName = function (input) {
@@ -33,64 +33,55 @@ var setUserName = function (input) {
     // submitButton.disabled = true;
     // userNameField.value = "";
     document.querySelector("#username-input").style.display = "none";
-    // document.querySelector("#submit-button").style.animation = "mynewmove 4s 2";
     return userName;
   }
 };
 
 var main = function (playerChoice, reverse = false, computerMode = false) {
-  console.log("⭐⭐⭐New Game⭐⭐⭐");
-  // console.log("User:");
-  // console.log(playerChoice);
-
-  if (reverse == false) {
+  if (reverse == false && computerMode == false) {
     var finalResult = getResultComparison(playerChoice);
-    console.log("Result:");
     console.log(finalResult);
     return finalResult;
   }
-  if (reverse == true) {
+  if (reverse == true && computerMode == false) {
     var reverseFinalResult = getReverseResultComparison(playerChoice);
-    console.log("Result:");
     console.log(reverseFinalResult);
     return reverseFinalResult;
   }
-
-  // if (computerMode == true) {
-  //   var computerFinalResult = getComputerResultComparison();
-  //   console.log("Result:");
-  //   console.log(computerFinalResult);
-  //   return computerFinalResult;
-  // }
+  if (reverse == false && computerMode == true) {
+    var reverseFinalResult = getComputerResultComparison(playerChoice);
+    console.log(reverseFinalResult);
+    return reverseFinalResult;
+  }
+  if (reverse == true && computerMode == true) {
+    var reverseFinalResult = getReverseComputerResultComparison(playerChoice);
+    console.log(reverseFinalResult);
+    return reverseFinalResult;
+  }
 };
 
-// NORMAL MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
-
+// Normal mode, user vs random
 var getResultComparison = function (playerChoice) {
   var computerChoice = getComputerChoice();
-
   if (!things.includes(playerChoice)) {
     return "Your input is not valid, please try again!";
   }
-
   if (computerChoice === playerChoice) {
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> You chose ${playerChoice} ${pic[playerChoice]}.
     <br> It is draw! 
     <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
   }
-
   if (
     (computerChoice === things[0] && playerChoice === things[1]) ||
     (computerChoice === things[1] && playerChoice === things[2]) ||
     (computerChoice === things[2] && playerChoice === things[0])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "You");
     updateWinningHand(winningHand, playerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
@@ -104,12 +95,11 @@ var getResultComparison = function (playerChoice) {
     (computerChoice === things[2] && playerChoice === things[1]) ||
     (computerChoice === things[0] && playerChoice === things[2])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "Computer");
     updateWinningHand(winningHand, computerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
@@ -119,8 +109,7 @@ var getResultComparison = function (playerChoice) {
   }
 };
 
-// REVERSE MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
-
+// Reverse mode, user vs random
 var getReverseResultComparison = function (playerChoice) {
   var computerChoice = getComputerChoice();
 
@@ -140,12 +129,11 @@ var getReverseResultComparison = function (playerChoice) {
     (computerChoice === things[2] && playerChoice === things[1]) ||
     (computerChoice === things[0] && playerChoice === things[2])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "You");
     updateWinningHand(winningHand, playerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
@@ -159,12 +147,11 @@ var getReverseResultComparison = function (playerChoice) {
     (computerChoice === things[1] && playerChoice === things[2]) ||
     (computerChoice === things[2] && playerChoice === things[0])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "Computer");
     updateWinningHand(winningHand, computerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
@@ -174,8 +161,7 @@ var getReverseResultComparison = function (playerChoice) {
   }
 };
 
-// COMPUTER MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
-
+// Computer mode, random vs ramdom
 var getComputerResultComparison = function () {
   var computerChoice = getComputerChoice();
   var playerChoice = getComputerChoice();
@@ -184,7 +170,7 @@ var getComputerResultComparison = function () {
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
     <br> It is draw! 
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 
   if (
@@ -192,18 +178,17 @@ var getComputerResultComparison = function () {
     (computerChoice === things[1] && playerChoice === things[2]) ||
     (computerChoice === things[2] && playerChoice === things[0])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "You");
     updateWinningHand(winningHand, playerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> Computer chose ${playerChoice} ${pic[playerChoice]} for you. 
     <br> You win!
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 
   if (
@@ -216,17 +201,16 @@ var getComputerResultComparison = function () {
     updateWinningHand(winningHand, computerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
     <br> You lose! Bummer.  
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 };
-// COMPUTER REVERSE MODE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
-
+// Computer reverse mode, random vs random
 var getReverseComputerResultComparison = function () {
   var computerChoice = getComputerChoice();
   var playerChoice = getComputerChoice();
@@ -235,7 +219,7 @@ var getReverseComputerResultComparison = function () {
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
     <br> It is draw! 
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 
   if (
@@ -243,18 +227,17 @@ var getReverseComputerResultComparison = function () {
     (computerChoice === things[2] && playerChoice === things[1]) ||
     (computerChoice === things[0] && playerChoice === things[2])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "You");
     updateWinningHand(winningHand, playerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> Computer chose ${playerChoice} ${pic[playerChoice]} for you. 
     <br> You win!
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 
   if (
@@ -262,25 +245,24 @@ var getReverseComputerResultComparison = function () {
     (computerChoice === things[1] && playerChoice === things[2]) ||
     (computerChoice === things[2] && playerChoice === things[0])
   ) {
-    // update leaderboard and winning hand tally
     updateLeaderboard(leaderBoard, "Computer");
     updateWinningHand(winningHand, computerChoice);
     console.log("updated leader board");
     console.log(leaderBoard);
-    console.log("updated probability table");
+    console.log("updated winning tally");
     console.log(winningHand);
 
     return `The computer chose ${computerChoice} ${pic[computerChoice]}. 
     <br> The computer chose ${playerChoice} ${pic[playerChoice]} for you.
     <br> You lose! Bummer.  
-    <br> Now you can select 🪨, 🗒 or 🔪 to play another round!`;
+    <br> Now you can click 🤖 to play another round!`;
   }
 };
 
-// COMPUTER CHOICE 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎
+// Generate random scissors/paper/stone
 var getComputerChoice = function () {
   var thing = things[Math.floor(Math.random() * things.length)];
-  console.log("Computer:");
+  console.log("Computer chose:");
   console.log(thing);
   return thing;
 };
