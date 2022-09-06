@@ -76,7 +76,7 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <div class="box">
       <!-- The <p> tag defines a paragraph element. -->
       <div id="username-input">
-        <p>Username:</p>
+        <p>Please enter your username:</p>
         <input id="username" />
         <br />
         <button id="submit-button">Submit</button>
@@ -84,13 +84,14 @@ The <html> element is known as the root element of a HTML page. All other elemen
       <!-- The self-closing <br /> tag represents a line break - a line's worth of spacing before dispalying the next element. -->
       <br />
       <!-- The <button> tag represents.. you guessed it! a button. -->
-      <button id="stone_button">🪨</button>
-      <button id="paper_button">🗒</button>
-      <button id="scissors_button">🔪</button>
-      <!-- check box for reverse mode -->
+      <p>Play against the computer:</p>
+        <button id="stone-button">🪨</button>
+      <button id="paper-button">🗒</button>
+      <button id="scissors-button">🔪</button>
       <input type="checkbox" id="reverse-mode">
       <label for="reverse-mode">🔄</label><br>
-      <button id="computer_mode_button">🤖</button>
+      <p>Or let the computer choose for you:</p>
+      <button id="computer-mode-button">🤖</button>
       <input type="checkbox" id="reverse-computer-mode">
       <label for="reverse-computer-mode">🔄</label><br>
       <p>Output:</p>
@@ -100,13 +101,13 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <!-- Leaderboard display -->
     <div class="board">
       <h2 id="leaderboard">Who won more?</h1>
-      <div id="user_wins"> You: 0</div>
-      <div id="computer_wins"> Computer: 0</div>
+      <div id="user-wins"> You: 0</div>
+      <div id="computer-wins"> Computer: 0</div>
     </div>
 
     <!-- Winning hand tally display -->
     <div class="board">
-      <h2 id="winning_hand">Which play won more?</h1>
+      <h2 id="winning-hand">Which play won more?</h1>
       <div id="scissors"> 🔪: 0 </div>
       <div id="paper"> 🗒: 0 </div>
       <div id="stone"> 🪨: 0 </div>
@@ -122,10 +123,10 @@ The <html> element is known as the root element of a HTML page. All other elemen
       var reverseComputerMode = document.querySelector("#reverse-computer-mode")
       var userNameField = document.querySelector("#username")
       var submitButton = document.querySelector("#submit-button"); 
-      var stoneButton = document.querySelector("#stone_button");
-      var paperButton = document.querySelector("#paper_button");
-      var scissorsButton = document.querySelector("#scissors_button");
-      var computerModeButton = document.querySelector("#computer_mode_button");
+      var stoneButton = document.querySelector("#stone-button");
+      var paperButton = document.querySelector("#paper-button");
+      var scissorsButton = document.querySelector("#scissors-button");
+      var computerModeButton = document.querySelector("#computer-mode-button");
       
       submitButton.addEventListener("click", function () {
         if (gameMode = "waiting for username") {

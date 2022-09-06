@@ -1,6 +1,5 @@
 var userName = "";
 var gameMode = "waiting for username";
-
 var things = ["stone", "paper", "scissors"];
 
 var pic = {
@@ -28,8 +27,14 @@ console.log(winningHand);
 
 var setUserName = function (input) {
   if (gameMode == "waiting for username") {
+    if (input.trim().length == 0) {
+      return "- Please enter a valid username.";
+    }
     userName = input;
-    gameMode = "normal mode";
+    gameMode = "game started";
+    document.querySelector(
+      "#user-wins"
+    ).innerHTML = `${userName}: ${leaderBoard["You"]}`;
     // submitButton.disabled = true;
     // userNameField.value = "";
     document.querySelector("#username-input").style.display = "none";
@@ -270,9 +275,9 @@ var getComputerChoice = function () {
 // Update leaderboard
 var updateLeaderboard = function (leaderBoard, winner) {
   leaderBoard[winner] += 1;
-  var youScore = document.querySelector("#user_wins");
-  var computerScore = document.querySelector("#computer_wins");
-  youScore.innerHTML = `You: ${leaderBoard["You"]}`;
+  var youScore = document.querySelector("#user-wins");
+  var computerScore = document.querySelector("#computer-wins");
+  youScore.innerHTML = `${userName}: ${leaderBoard["You"]}`;
   computerScore.innerHTML = `Computer: ${leaderBoard["Computer"]}`;
 };
 
