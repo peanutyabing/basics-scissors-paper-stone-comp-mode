@@ -132,14 +132,8 @@ The <html> element is known as the root element of a HTML page. All other elemen
         if (gameMode = "waiting for username") {
           var result = setUserName(document.querySelector("#username").value);
           var output = document.querySelector("#output-div");
-          output.innerHTML = `Hello ${result}`;
-          } else if (gameMode = "normal mode") {
-            var result = getComputerResultComparison();
-            var output = document.querySelector("#output-div");
-            output.innerHTML =  result;
-          }
-        } 
-        );
+          output.innerHTML = `Hello ${result}!`;}
+        });
 
       stoneButton.addEventListener("click", function () {
         var result = main("stone", reverseMode.checked, computerMode = false);
@@ -160,7 +154,7 @@ The <html> element is known as the root element of a HTML page. All other elemen
       });
       
       computerModeButton.addEventListener("click", function () {
-        var result = main(undefined, reverseMode.checked, true)
+        var result = main(undefined, reverseComputerMode.checked, true)
         var output = document.querySelector('#output-div');
         output.innerHTML =result;
       });

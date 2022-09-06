@@ -28,7 +28,7 @@ console.log(winningHand);
 var setUserName = function (input) {
   if (gameMode == "waiting for username") {
     if (input.trim().length == 0) {
-      return "- Please enter a valid username.";
+      return "- Please enter a valid username";
     }
     userName = input;
     gameMode = "game started";
